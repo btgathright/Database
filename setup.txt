@@ -1,0 +1,8 @@
+code --install-extension faustinoaq.javac-linter
+code --install-extension mellena1.eclipse-new-java-project
+code --install-extension redhat.java
+code --install-extension vscjava.vscode-java-debug
+code --install-extension vscjava.vscode-java-dependency
+code --install-extension vscjava.vscode-java-pack
+code --install-extension vscjava.vscode-java-test
+code --install-extension vscjava.vscode-maven
