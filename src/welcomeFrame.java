@@ -11,6 +11,7 @@ class welcomeFrame extends JFrame
         this.setLocation(512, 384);
         this.setSize(500, 125);
         this.setTitle("S.S. Tracker");
+        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         //Create panel with welcome text and login fields
         JPanel welcomePanel = new JPanel();
