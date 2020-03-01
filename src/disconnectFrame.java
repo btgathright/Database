@@ -1,5 +1,6 @@
 import javax.swing.*;
 import java.sql.*;
+import java.awt.GridLayout;
 
 class disconnectFrame extends JFrame
 {
@@ -10,16 +11,24 @@ class disconnectFrame extends JFrame
         try {conn.close();}
         catch  (Exception e){}
         disconnectStatus.setLocation(625,325);
-        disconnectStatus.setSize(100, 80);
+        disconnectStatus.setSize(100, 100);
         disconnectStatus.setTitle("S.S. Tracker");
         disconnectStatus.setVisible(true);
+        disconnectStatus.setLayout(new GridLayout(2,1));
+        disconnectStatus.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         
         JPanel disconnectMessage = new JPanel();
-        disconnectMessage.add(new JLabel("Disconnected from server."));
+        JLabel disconnect = new JLabel("Disconnected from server.");
+        disconnect.setVerticalAlignment(SwingConstants.CENTER);
+        disconnectMessage.add(disconnect);
+
+        JPanel disconnectButton = new JPanel();
         JButton okButton = new JButton("Ok");
         okButton.addActionListener(e -> okButtonClick());
+        disconnectButton.add(okButton);
 
         disconnectStatus.add(disconnectMessage);
+        disconnectStatus.add(disconnectButton);
         disconnectStatus.setVisible(true);
     }
 

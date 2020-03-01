@@ -1,5 +1,6 @@
 import javax.swing.*;
 import java.sql.*;
+import java.awt.GridLayout;
 
 class reassureFrame extends JFrame
 {
@@ -12,17 +13,22 @@ class reassureFrame extends JFrame
         reassureStatus.setSize(300, 100);
         reassureStatus.setTitle("S.S. Tracker");
         reassureStatus.setVisible(true);
+        reassureStatus.setLayout(new GridLayout(2,1));
+        reassureStatus.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         
         JPanel reassureMessage = new JPanel();
         reassureMessage.add(new JLabel("Are you sure you want to disconnect?"));
+
+        JPanel reassureButtons = new JPanel();
         JButton yesButton = new JButton("Yes");
         yesButton.addActionListener(e -> yesButtonClick());
-        reassureMessage.add(yesButton);
+        reassureButtons.add(yesButton);
         JButton noButton = new JButton("No");
         noButton.addActionListener(e -> noButtonClick());
-        reassureMessage.add(noButton);
+        reassureButtons.add(noButton);
 
         reassureStatus.add(reassureMessage);
+        reassureStatus.add(reassureButtons);
         reassureStatus.setVisible(true);
     }
 

@@ -1,5 +1,6 @@
 import javax.swing.*;
 import java.sql.*;
+import java.awt.GridLayout;
 
 class connectionFrame extends JFrame
 {
@@ -21,17 +22,24 @@ class connectionFrame extends JFrame
         }//end try catch
 
         connectionStatus.setLocation(625,325);
-        connectionStatus.setSize(100, 80);
+        connectionStatus.setSize(100, 100);
         connectionStatus.setTitle("S.S. Tracker");
         connectionStatus.setVisible(true);
+        connectionStatus.setLayout(new GridLayout(2,1));
+        connectionStatus.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         
         JPanel connectionMessage = new JPanel();
-        connectionMessage.add(new JLabel("Successfully connected to the server."));
+        JLabel success = new JLabel("Successfully connected to the server.");
+        success.setVerticalAlignment(SwingConstants.CENTER);
+        connectionMessage.add(success);
+
+        JPanel connectionButton = new JPanel();
         JButton okButton = new JButton("Ok");
         okButton.addActionListener(e -> okButtonClick());
-        connectionMessage.add(okButton);
+        connectionButton.add(okButton);
 
         connectionStatus.add(connectionMessage);
+        connectionStatus.add(connectionButton);
         connectionStatus.setVisible(true);
     }
 
