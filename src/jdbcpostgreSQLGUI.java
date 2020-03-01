@@ -1,53 +1,14 @@
-import java.sql.*;
-import javax.swing.JOptionPane;
 /*
-Robert lightfoot
+Brandon Gathright
+Seth Hamilton
+Samiha
+Johnathan Robert
 CSCE 315
-9-25-2019
+2/29/2020
  */
 public class jdbcpostgreSQLGUI {
   public static void main(String args[]) {
-    dbSetup my = new dbSetup();
-    //Building the connection
-     Connection conn = null;
-     try {
-        Class.forName("org.postgresql.Driver");
-        conn = DriverManager.getConnection("jdbc:postgresql://csce-315-db.engr.tamu.edu/team14_cfb",
-           my.user, my.pswd);
-     } catch (Exception e) {
-        e.printStackTrace();
-        System.err.println(e.getClass().getName()+": "+e.getMessage());
-        System.exit(0);
-     }//end try catch
-     JOptionPane.showMessageDialog(null,"Opened database successfully");
-     String conf_name = "";
-     try{
-     //create a statement object
-       Statement stmt = conn.createStatement();
-       //create an SQL statement
-       String sqlStatement = "SELECT * FROM public.\"Conference\"";
-       //send statement to DBMS
-       ResultSet result = stmt.executeQuery(sqlStatement);
-
-       //OUTPUT
-       JOptionPane.showMessageDialog(null,"Conference names from the database");
-       //System.out.println("______________________________________");
-       while (result.next()) {
-         //System.out.println(result.getString("Name"));
-         conf_name += result.getString("Name")+"\n";
-       }
-     } 
-     catch (Exception e){
-     JOptionPane.showMessageDialog(null,"Error accessing Database.");
-     }
-	 JOptionPane.showMessageDialog(null,conf_name);
-
-     //closing the connection
-     try {
-      conn.close();
-      JOptionPane.showMessageDialog(null,"Connection Closed.");
-     } catch(Exception e) {
-      JOptionPane.showMessageDialog(null,"Connection NOT Closed.");
-    }//end try catch
+    //Open frame for welcome user prompt
+    welcomeFrame wF = new welcomeFrame();
   }//end main
 }//end Class
