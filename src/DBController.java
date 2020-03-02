@@ -6,7 +6,7 @@ import javax.swing.*;
 
 public class DBController {
 
-    public Connection conn = null;
+    private Connection conn = null;
 
     public DBController(dbSetup my) {
         try {
@@ -28,7 +28,101 @@ public class DBController {
             ResultSet result = stmt.executeQuery(s);
             return result;
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null,"Query failed (Check your column name).");
+            try {
+                s = q.get_alternate_query_string();
+                Statement stmt = this.conn.createStatement();
+                ResultSet result = stmt.executeQuery(s);
+                return result;
+            } catch (Exception e2) {
+                JOptionPane.showMessageDialog(null,"Query failed (Check your column name).");
+                System.out.println(String.format("Error: %s", e2.toString()));
+            }
+        }
+        // protocol is to return null. API users should check for this 
+        // before attempting to use results
+        return null;
+    }
+
+    public ResultSet query_union(Query q1, Query q2) {
+        String q1_str = q1.get_query_string();
+        String q2_str = q2.get_query_string();
+        String total = q1_str.substring(0, q1_str.length()-1) + " UNION " + q2_str;
+        try {
+            Statement stmt = this.conn.createStatement();
+            ResultSet result = stmt.executeQuery(total);
+            return result;
+        } catch (Exception e) {
+            try {
+                q1_str = q1.get_alternate_query_string();
+                q2_str = q2.get_query_string();
+                total = q1_str.substring(0, q1_str.length()-1) + " UNION " + q2_str;
+                Statement stmt = this.conn.createStatement();
+                ResultSet result = stmt.executeQuery(total);
+                return result;
+            } catch (Exception e2) {
+                try {
+                    q1_str = q1.get_query_string();
+                    q2_str = q2.get_alternate_query_string();
+                    total = q1_str.substring(0, q1_str.length()-1) + " UNION " + q2_str;
+                    Statement stmt = this.conn.createStatement();
+                    ResultSet result = stmt.executeQuery(total);
+                    return result;
+                } catch (Exception e3) {
+                    try {
+                        q1_str = q1.get_alternate_query_string();
+                        q2_str = q2.get_alternate_query_string();
+                        total = q1_str.substring(0, q1_str.length()-1) + " UNION " + q2_str;
+                        Statement stmt = this.conn.createStatement();
+                        ResultSet result = stmt.executeQuery(total);
+                        return result;
+                    } catch (Exception e4) {
+                        JOptionPane.showMessageDialog(null,"Query failed (Check your column name).");
+                    }
+                }
+            }
+        }
+        // protocol is to return null. API users should check for this 
+        // before attempting to use results
+        return null;
+    }
+
+    public ResultSet query_intersection(Query q1, Query q2) {
+        String q1_str = q1.get_query_string();
+        String q2_str = q2.get_query_string();
+        String total = q1_str.substring(0, q1_str.length()-1) + " INTERSECT " + q2_str;
+        try {
+            Statement stmt = this.conn.createStatement();
+            ResultSet result = stmt.executeQuery(total);
+            return result;
+        } catch (Exception e) {
+            try {
+                q1_str = q1.get_alternate_query_string();
+                q2_str = q2.get_query_string();
+                total = q1_str.substring(0, q1_str.length()-1) + " INTERSECT " + q2_str;
+                Statement stmt = this.conn.createStatement();
+                ResultSet result = stmt.executeQuery(total);
+                return result;
+            } catch (Exception e2) {
+                try {
+                    q1_str = q1.get_query_string();
+                    q2_str = q2.get_alternate_query_string();
+                    total = q1_str.substring(0, q1_str.length()-1) + " INTERSECT " + q2_str;
+                    Statement stmt = this.conn.createStatement();
+                    ResultSet result = stmt.executeQuery(total);
+                    return result;
+                } catch (Exception e3) {
+                    try {
+                        q1_str = q1.get_alternate_query_string();
+                        q2_str = q2.get_alternate_query_string();
+                        total = q1_str.substring(0, q1_str.length()-1) + " INTERSECT " + q2_str;
+                        Statement stmt = this.conn.createStatement();
+                        ResultSet result = stmt.executeQuery(total);
+                        return result;
+                    } catch (Exception e4) {
+                        JOptionPane.showMessageDialog(null,"Query failed (Check your column name).");
+                    }
+                }
+            }
         }
         // protocol is to return null. API users should check for this 
         // before attempting to use results
