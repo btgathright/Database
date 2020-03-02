@@ -6,17 +6,18 @@ import javax.swing.*;
 
 public class DBController {
 
-    private Connection conn = null;
+    Connection conn = null;
 
     public DBController(dbSetup my) {
         try {
             Class.forName("org.postgresql.Driver");
             conn = DriverManager.getConnection("jdbc:postgresql://csce-315-db.engr.tamu.edu/team14_cfb",
                 my.user, my.pswd);
+            connectionFrame cF = new connectionFrame(conn);
         } catch (Exception e) {
             e.printStackTrace();
             System.err.println(e.getClass().getName()+": " + e.getMessage());
-            System.exit(0);
+            failedFrame fF = new failedFrame();
         }
         // If you get to this point, you've successfully connected...
     }

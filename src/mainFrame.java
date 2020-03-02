@@ -63,22 +63,16 @@ class mainFrame extends JFrame
         JPanel searchOptions1 = new JPanel();
         searchOptions1.setLayout(new GridLayout(1,3, 10, 10));
 
-        JList tableList1 = new JList(); //Add list of tables in new object declaration
-        tableList1.setVisibleRowCount(8);
-        JScrollPane tableList1Scroll = new JScrollPane(tableList1);
-        searchOptions1.add(tableList1Scroll);
+        JComboBox tableList1 = new JComboBox(); //Add list of tables in new object declaration
+        searchOptions1.add(tableList1);
 
         //Get values for list from tableList1 selection
-        JList columnList1 = new JList(); //Add columns from chosen table into new object declaration
-        columnList1.setVisibleRowCount(8);
-        JScrollPane columnList1Scroll = new JScrollPane(columnList1);
-        searchOptions1.add(columnList1Scroll);
+        JComboBox columnList1 = new JComboBox(); //Add columns from chosen table into new object declaration
+        searchOptions1.add(columnList1);
 
         //Get values for list from columnList1 selection
-        JList dataList1 = new JList(); //Add values from chosen column into new object declaration
-        dataList1.setVisibleRowCount(8);
-        JScrollPane dataList1Scroll = new JScrollPane(dataList1);
-        searchOptions1.add(dataList1Scroll);
+        JComboBox dataList1 = new JComboBox(); //Add values from chosen column into new object declaration
+        searchOptions1.add(dataList1);
        
         //Panel that displays all the search options for value2
         //Left - Tables within the database
@@ -87,22 +81,16 @@ class mainFrame extends JFrame
         JPanel searchOptions2 = new JPanel();
         searchOptions2.setLayout(new GridLayout(1,3, 10, 10));
 
-        JList tableList2 = new JList(); //Add list of tables in new object declaration
-        tableList2.setVisibleRowCount(8);
-        JScrollPane tableList2Scroll = new JScrollPane(tableList2);
-        searchOptions2.add(tableList2Scroll);
+        JComboBox tableList2 = new JComboBox(); //Add list of tables in new object declaration
+        searchOptions2.add(tableList2);
 
         //Get values for list from tableList2 selection
-        JList columnList2 = new JList(); //Add columns from chosen table in new object declaration
-        columnList2.setVisibleRowCount(8);
-        JScrollPane columnList2Scroll = new JScrollPane(columnList2);
-        searchOptions2.add(columnList2Scroll);
+        JComboBox columnList2 = new JComboBox(); //Add columns from chosen table in new object declaration
+        searchOptions2.add(columnList2);
 
         //Get values for list from columnList2 selection
-        JList dataList2 = new JList(); //Add values from chosen column in new object declaration
-        dataList2.setVisibleRowCount(8);
-        JScrollPane dataList2Scroll = new JScrollPane(dataList2);
-        searchOptions2.add(dataList2Scroll);
+        JComboBox dataList2 = new JComboBox(); //Add values from chosen column in new object declaration
+        searchOptions2.add(dataList2);
 
         //Combine all the panels onto the frame
         mainFrame.add(options);
@@ -110,31 +98,6 @@ class mainFrame extends JFrame
         mainFrame.add(searchOptions2);
         mainFrame.setVisible(true);
     }
-
-    //Here is the initial query for data from the professors example for reference when creating querries.
-    /*
-     String conf_name = "";
-     try{
-     //create a statement object
-       Statement stmt = conn.createStatement();
-       //create an SQL statement
-       String sqlStatement = "SELECT * FROM public.\"Conference\"";
-       //send statement to DBMS
-       ResultSet result = stmt.executeQuery(sqlStatement);
-
-       //OUTPUT
-       JOptionPane.showMessageDialog(null,"Conference names from the database");
-       //System.out.println("______________________________________");
-       while (result.next()) {
-         //System.out.println(result.getString("Name"));
-         conf_name += result.getString("Name")+"\n";
-       }
-     } 
-     catch (Exception e){
-     JOptionPane.showMessageDialog(null,"Error accessing Database.");
-     }
-   JOptionPane.showMessageDialog(null,conf_name);
-   */
 
     public void searchButtonClick()
     {
@@ -156,7 +119,8 @@ class mainFrame extends JFrame
     public void resetButtonClick()
     {
         mainFrame.setVisible(false);
-        mainFrame mF = new mainFrame(trans);
+        mainFrame mF = new mainFrame(trans); 
+        //Possibly reset this to clear lists
         mainFrame.dispose();
     }
 

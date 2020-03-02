@@ -7,20 +7,9 @@ class connectionFrame extends JFrame
     JFrame connectionStatus = new JFrame();
     Connection conn = null;
 
-    connectionFrame(String alphaKey, String betaKey)
+    connectionFrame(Connection transfer)
     {
-        dbSetup my = new dbSetup(alphaKey, betaKey);
-        //Building the connection
-        try {
-            Class.forName("org.postgresql.Driver");
-            conn = DriverManager.getConnection("jdbc:postgresql://csce-315-db.engr.tamu.edu/team14_cfb",
-                my.user, my.pswd);
-        } catch (Exception e) {
-            e.printStackTrace();
-            System.err.println(e.getClass().getName()+": "+e.getMessage());
-            System.exit(0);
-        }//end try catch
-
+        conn = transfer;
         connectionStatus.setLocation(625,325);
         connectionStatus.setSize(100, 100);
         connectionStatus.setTitle("S.S. Tracker");
