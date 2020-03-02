@@ -20,6 +20,8 @@ public class Query {
             String.format("SELECT * FROM public.\"%s\" WHERE \"%s\" = '%s';", table, column, value);
         this.alternate_query_string = 
             String.format("SELECT * FROM public.\"%s\" WHERE \"%s\" = '%s';", table, column, value);
+
+        System.out.println(this.total_query_string);
     }
 
     public Query(String table1, String table2, String column, String value, DBController controller) {
@@ -27,7 +29,6 @@ public class Query {
         Query q = new Query(column_name_query);
 
         ResultSet column_names_set = controller.query(q);
-
         List<String> names = new ArrayList<String>();
         try {
             while (column_names_set.next()) {
@@ -35,7 +36,7 @@ public class Query {
             }
         } catch (Exception e) {
             // Honestly an error should be thrown here. 
-            names.add("*,");
+            names.add("*");
         }
         String names_str = String.join(",", names);
 
@@ -58,15 +59,15 @@ public class Query {
 
     // Example Code: 
     public static void main(String[] args) {
-        String table1 = "Team";
-        String table2 = "Player";
-        String column = "Last Name";
-        String value = "Hamilton";
+        String table1 = "Player";
+        String table2 = "Punt-Return";
+        String column = "Yards";
+        String value = "20";
         
-        String table3 = "Team";
-        String table4 = "Conference";
-        String column2 = "Name";
-        String value2 = "Southeastern Conference";
+        String table3 = "Player";
+        String table4 = "Punt";
+        String column2 = "Yards";
+        String value2 = "34";
         
         dbSetup my = new dbSetup("smh3005", "226005119");
         DBController controller = new DBController(my);
@@ -75,7 +76,9 @@ public class Query {
         Query q1 = new Query(table1, table2, column, value, controller);
         Query q2 = new Query(table3, table4, column2, value2, controller);
 
+        
         ResultSet rs = controller.query_intersection(q1, q2);
+        System.out.println("Here!");
 
         // Example code of how to write to a file
         try {

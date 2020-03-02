@@ -23,6 +23,7 @@ public class DBController {
 
     public ResultSet query(Query q) {
         String s = q.get_query_string();
+        System.out.println(String.format("Query: %s", s));
         try {
             Statement stmt = this.conn.createStatement();
             ResultSet result = stmt.executeQuery(s);
@@ -30,6 +31,7 @@ public class DBController {
         } catch (Exception e) {
             try {
                 s = q.get_alternate_query_string();
+                System.out.println(String.format("Alternate Query: %s", s));
                 Statement stmt = this.conn.createStatement();
                 ResultSet result = stmt.executeQuery(s);
                 return result;
@@ -47,6 +49,7 @@ public class DBController {
         String q1_str = q1.get_query_string();
         String q2_str = q2.get_query_string();
         String total = q1_str.substring(0, q1_str.length()-1) + " UNION " + q2_str;
+        System.out.println(String.format("Query Attempt 1: %s", total));
         try {
             Statement stmt = this.conn.createStatement();
             ResultSet result = stmt.executeQuery(total);
@@ -56,6 +59,7 @@ public class DBController {
                 q1_str = q1.get_alternate_query_string();
                 q2_str = q2.get_query_string();
                 total = q1_str.substring(0, q1_str.length()-1) + " UNION " + q2_str;
+                System.out.println(String.format("Query Attempt 2: %s", total));
                 Statement stmt = this.conn.createStatement();
                 ResultSet result = stmt.executeQuery(total);
                 return result;
@@ -64,6 +68,7 @@ public class DBController {
                     q1_str = q1.get_query_string();
                     q2_str = q2.get_alternate_query_string();
                     total = q1_str.substring(0, q1_str.length()-1) + " UNION " + q2_str;
+                    System.out.println(String.format("Query Attempt 3: %s", total));
                     Statement stmt = this.conn.createStatement();
                     ResultSet result = stmt.executeQuery(total);
                     return result;
@@ -72,6 +77,7 @@ public class DBController {
                         q1_str = q1.get_alternate_query_string();
                         q2_str = q2.get_alternate_query_string();
                         total = q1_str.substring(0, q1_str.length()-1) + " UNION " + q2_str;
+                        System.out.println(String.format("Query Attempt 4: %s", total));
                         Statement stmt = this.conn.createStatement();
                         ResultSet result = stmt.executeQuery(total);
                         return result;
@@ -90,6 +96,7 @@ public class DBController {
         String q1_str = q1.get_query_string();
         String q2_str = q2.get_query_string();
         String total = q1_str.substring(0, q1_str.length()-1) + " INTERSECT " + q2_str;
+        System.out.println(String.format("Query Attempt 1: %s", total));
         try {
             Statement stmt = this.conn.createStatement();
             ResultSet result = stmt.executeQuery(total);
@@ -99,6 +106,7 @@ public class DBController {
                 q1_str = q1.get_alternate_query_string();
                 q2_str = q2.get_query_string();
                 total = q1_str.substring(0, q1_str.length()-1) + " INTERSECT " + q2_str;
+                System.out.println(String.format("Query Attempt 2: %s", total));
                 Statement stmt = this.conn.createStatement();
                 ResultSet result = stmt.executeQuery(total);
                 return result;
@@ -107,6 +115,7 @@ public class DBController {
                     q1_str = q1.get_query_string();
                     q2_str = q2.get_alternate_query_string();
                     total = q1_str.substring(0, q1_str.length()-1) + " INTERSECT " + q2_str;
+                    System.out.println(String.format("Query Attempt 3: %s", total));
                     Statement stmt = this.conn.createStatement();
                     ResultSet result = stmt.executeQuery(total);
                     return result;
@@ -115,6 +124,7 @@ public class DBController {
                         q1_str = q1.get_alternate_query_string();
                         q2_str = q2.get_alternate_query_string();
                         total = q1_str.substring(0, q1_str.length()-1) + " INTERSECT " + q2_str;
+                        System.out.println(String.format("Query Attempt 4: %s", total));
                         Statement stmt = this.conn.createStatement();
                         ResultSet result = stmt.executeQuery(total);
                         return result;
