@@ -5,7 +5,7 @@ import java.awt.GridLayout;
 class connectionFrame extends JFrame
 {
     JFrame connectionStatus = new JFrame();
-    Connection conn = null;
+    static Connection conn = null;
 
     connectionFrame(String alphaKey, String betaKey)
     {
@@ -17,7 +17,7 @@ class connectionFrame extends JFrame
                 my.user, my.pswd);
         } catch (Exception e) {
             e.printStackTrace();
-            System.err.println(e.getClass().getName()+": "+e.getMessage());
+            System.err.println(e.getClass().getName()+": " + e.getMessage());
             System.exit(0);
         }//end try catch
 
