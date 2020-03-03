@@ -38,7 +38,7 @@ class connectionFrame extends JFrame
     {
         connectionStatus.setVisible(false);
         System.out.println("Howdy!");
-        mainFrame mF = new mainFrame(sending);
+        mainFrame mf = new mainFrame(sending);
         connectionStatus.dispose();
     }
 }

@@ -13,9 +13,9 @@ public class Query {
     // Basic Query
     public Query(String table, String column, String value) {
         this.total_query_string = 
-            String.format("SELECT * FROM public.\"%s\" WHERE \"%s\" = '%s';", table, column, value);
+            String.format("SELECT * FROM public.\"%s\" WHERE %s = '%s';", table, column, value);
         this.alternate_query_string = 
-            String.format("SELECT * FROM public.\"%s\" WHERE \"%s\" = '%s';", table, column, value);
+            String.format("SELECT * FROM public.\"%s\" WHERE %s = '%s';", table, column, value);
 
         System.out.println(this.total_query_string);
     }
@@ -26,11 +26,11 @@ public class Query {
         String names_str = String.join(",", names);
 
         this.total_query_string = 
-            String.format("SELECT %s FROM public.\"%s\" INNER JOIN \"%s\" ON (\"%s\".\"%s ID\" = \"%s\".\"ID\" AND \"%s\".\"%s\" = '%s');",
+            String.format("SELECT %s FROM public.\"%s\" INNER JOIN \"%s\" ON (\"%s\".\"%s ID\" = \"%s\".\"ID\" AND %s.%s = '%s');",
                 names_str, table1, table2, table1, table2, table2, table2, column, value);
 
         this.alternate_query_string = 
-            String.format("SELECT %s FROM public.\"%s\" INNER JOIN \"%s\" ON (\"%s\".\"%s ID\" = \"%s\".\"ID\" AND \"%s\".\"%s\" = '%s');",
+            String.format("SELECT %s FROM public.\"%s\" INNER JOIN \"%s\" ON (\"%s\".\"%s ID\" = \"%s\".\"ID\" AND %s.%s = '%s');",
                 names_str, table1, table2, table2, table1, table1, table2, column, value);
     }
 
@@ -104,26 +104,26 @@ public class Query {
     //     System.out.println("Here!");
 
     //     // Example code of how to write to a file
-    //     try {
-    //         int n = rs.getMetaData().getColumnCount();
-    //         StringBuilder sb = new StringBuilder();
+        // try {
+        //     int n = rs.getMetaData().getColumnCount();
+        //     StringBuilder sb = new StringBuilder();
             
-    //         while (rs.next()) {
-    //             for (int i = 1; i <= n; i++) {
-    //                 sb.append(rs.getString(i));
-    //                 sb.append(", ");
-    //             }
-    //             sb.append("\n");
-    //         }
-    //         FileWriter fw = new FileWriter("./output.csv");
-    //         fw.write(sb.toString());
-    //         fw.close();
+        //     while (rs.next()) {
+        //         for (int i = 1; i <= n; i++) {
+        //             sb.append(rs.getString(i));
+        //             sb.append(", ");
+        //         }
+        //         sb.append("\n");
+        //     }
+        //     FileWriter fw = new FileWriter("./output.csv");
+        //     fw.write(sb.toString());
+        //     fw.close();
 
-    //         System.out.println(sb.toString());
-    //     } catch (Exception e) {
-    //         System.out.println("There was an issue writing to file");
-    //         System.out.println(String.format("Error: %s", e.toString()));
-    //     }
+        //     System.out.println(sb.toString());
+        // } catch (Exception e) {
+        //     System.out.println("There was an issue writing to file");
+        //     System.out.println(String.format("Error: %s", e.toString()));
+        // }
     // }
     //TODO: Add more constructors to deal with more complex scenarios?
 }
