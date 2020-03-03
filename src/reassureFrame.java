@@ -46,7 +46,7 @@ class reassureFrame extends JFrame
     public void noButtonClick()
     {
         reassureStatus.setVisible(false);
-        mainFrame mF = new mainFrame(trans);
+        mainFrame mF = new mainFrame(sending);
         reassureStatus.dispose();
     }
 }

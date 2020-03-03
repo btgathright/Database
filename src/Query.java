@@ -1,7 +1,3 @@
-import java.sql.*;
-import java.util.*; 
-import java.io.*;
-
 public class Query {
     // This object just creates a query string using 2 constructors.
     // Pass an object of this type to a query call on a DBController object to perform a query. 

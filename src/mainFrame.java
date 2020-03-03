@@ -168,7 +168,7 @@ class mainFrame extends JFrame
     public void disconnectButtonClick()
     {
         mainFrame.setVisible(false);
-        reassureFrame dF = new reassureFrame(DBcont, mainFrame);
+        reassureFrame dF = new reassureFrame(DBcont);
         mainFrame.dispose();
     }
 
