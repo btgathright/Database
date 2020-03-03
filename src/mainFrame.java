@@ -31,6 +31,9 @@ class mainFrame extends JFrame
         mainFrame.setTitle("S.S. Tracker");
         mainFrame.setLayout(new BorderLayout(10, 10));
         mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+
+        columnList = new JComboBox(DBHelper.get_column_names(DBcont, "Player"));
         
         JPanel options = new JPanel();
         options.setLayout(new GridLayout(3,6, 10, 10));
@@ -50,50 +53,51 @@ class mainFrame extends JFrame
         outputButtons.add(both);
         file.setSelected(true);
 
+        
         //Search type and drop down menu
         JLabel sType = new JLabel("Search Type");
         sType.setHorizontalAlignment(SwingConstants.CENTER);
-
+        
         String[] selections = {"Single", "Double"};
         sSelections = new JComboBox(selections);
-
+        
         //Table 1 and drop down menu
         JLabel Table1 = new JLabel("Table 1");
         Table1.setHorizontalAlignment(SwingConstants.CENTER);
-
+        
         String[] TableValues = DBHelper.get_table_names(DBcont);
         tableList1 = new JComboBox(TableValues);
         tableList1.addActionListener(e -> tableSelect());
-
+        
         //Table 2 and drop down menu
         JLabel Table2 = new JLabel("Table 2");
         Table2.setHorizontalAlignment(SwingConstants.CENTER);
-
+        
         tableList2 = new JComboBox(TableValues); 
-
+        
         //Columns and drop down menu
         JLabel Column = new JLabel("Column");
         Column.setHorizontalAlignment(SwingConstants.CENTER);
-
+        
         //Data values and drop down menu
         JLabel Values = new JLabel("Value");
         Values.setHorizontalAlignment(SwingConstants.CENTER);
-
+        
         searchValue = new JTextField();
-
+        
         //Buttons for reset and search
         JButton searchButton = new JButton("Search");
         searchButton.setPreferredSize(new Dimension(20,20));
         searchButton.addActionListener(e -> searchButtonClick());
-
+        
         JButton resetButton = new JButton("Reset");
         resetButton.setPreferredSize(new Dimension(20,20));
         resetButton.addActionListener(e -> resetButtonClick());
-
+        
         JButton disconnectButton = new JButton("Disconnect");
         disconnectButton.setPreferredSize(new Dimension(20,20));
         disconnectButton.addActionListener(e -> disconnectButtonClick());
-
+        
         //First row
         options.add(output);
         options.add(file);
@@ -101,7 +105,7 @@ class mainFrame extends JFrame
         options.add(both);
         options.add(empty);
         options.add(disconnectButton);
-
+        
         //Second row
         options.add(sType);
         options.add(Table1);
@@ -117,15 +121,17 @@ class mainFrame extends JFrame
         options.add(columnList);
         options.add(searchValue);
         options.add(resetButton);
-
+        
         JPanel outputArea = new JPanel();
+        outputText = new JTextArea("Test"); //Put text to output in here.
         outputArea.add(outputText);
-
+        System.out.println("Howdy 2!");
+        
         mainFrame.add(options, BorderLayout.PAGE_START);
         mainFrame.add(outputArea, BorderLayout.CENTER);
         mainFrame.setVisible(true);
     }
-
+    
     public void searchButtonClick()
     {
         if (tableList2.getSelectedItem() == null)
