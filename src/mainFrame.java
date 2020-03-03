@@ -126,8 +126,9 @@ class mainFrame extends JFrame
         
         JPanel outputArea = new JPanel();
         outputText = new JTextArea(); //Put text to output in here.
-        outputArea.add(outputText);
-        // System.out.println("Default");
+        JScrollPane outputPane = new JScrollPane(outputText, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
+        outputPane.setPreferredSize(new Dimension(1000,500));
+        outputArea.add(outputPane);
         
         this.main.add(options, BorderLayout.PAGE_START);
         this.main.add(outputArea, BorderLayout.CENTER);
@@ -240,7 +241,9 @@ class mainFrame extends JFrame
         JPanel outputArea = new JPanel();
         System.out.println(str_output);
         outputText = new JTextArea(str_output); //Put text to output in here.
-        outputArea.add(outputText);
+        JScrollPane outputPane = new JScrollPane(outputText, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
+        outputPane.setPreferredSize(new Dimension(1000,500));
+        outputArea.add(outputPane);
         // System.out.println("Special");
         
         this.main.add(options, BorderLayout.PAGE_START);
