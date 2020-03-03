@@ -127,7 +127,7 @@ class mainFrame extends JFrame
         JPanel outputArea = new JPanel();
         outputText = new JTextArea(); //Put text to output in here.
         outputArea.add(outputText);
-        System.out.println("Default");
+        // System.out.println("Default");
         
         this.main.add(options, BorderLayout.PAGE_START);
         this.main.add(outputArea, BorderLayout.CENTER);
@@ -241,7 +241,7 @@ class mainFrame extends JFrame
         System.out.println(str_output);
         outputText = new JTextArea(str_output); //Put text to output in here.
         outputArea.add(outputText);
-        System.out.println("Special");
+        // System.out.println("Special");
         
         this.main.add(options, BorderLayout.PAGE_START);
         this.main.add(outputArea, BorderLayout.CENTER);
