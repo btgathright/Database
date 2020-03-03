@@ -1,9 +1,6 @@
-/*
-Robert Lightfoot
-CSCE 315
-Database setup example
-Purpose: Keeping usernames and password private.
-*/
+//This is a database setup object responsible for holding usernames and passwords
+//that the user inputs in the welcomeFrame.
+
 public class dbSetup
 {
   public String user;

@@ -1,15 +1,17 @@
 import javax.swing.*;
-import java.sql.*;
 import java.awt.GridLayout;
+
+//This is a frame that is displayed when connection to the database is successful
+//The user will then click "ok" to continue to the main panel of the program.
 
 class connectionFrame extends JFrame
 {
     JFrame connectionStatus = new JFrame();
-    Connection conn = null;
+    DBController sending = null;
 
-    connectionFrame(Connection transfer)
+    connectionFrame(DBController transfer)
     {
-        conn = transfer;
+        sending = transfer;
         connectionStatus.setLocation(625,325);
         connectionStatus.setSize(100, 100);
         connectionStatus.setTitle("S.S. Tracker");
@@ -35,7 +37,7 @@ class connectionFrame extends JFrame
     public void okButtonClick()
     {
         connectionStatus.setVisible(false);
-        mainFrame mF = new mainFrame(conn);
+        mainFrame mF = new mainFrame(sending);
         connectionStatus.dispose();
     }
 }

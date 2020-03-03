@@ -2,6 +2,10 @@ import javax.swing.*;
 import java.sql.*;
 import java.awt.GridLayout;
 
+//This is a frame that is created when connection to the server is failed.
+//Regardless of poor connection or invalid credentials this frame will prompt
+//the user to retry logging in.
+
 class failedFrame extends JFrame
 {
     JFrame failedStatus = new JFrame();

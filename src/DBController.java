@@ -13,7 +13,7 @@ public class DBController {
             Class.forName("org.postgresql.Driver");
             conn = DriverManager.getConnection("jdbc:postgresql://csce-315-db.engr.tamu.edu/team14_cfb",
                 my.user, my.pswd);
-            connectionFrame cF = new connectionFrame(conn);
+            connectionFrame cF = new connectionFrame(this);
         } catch (Exception e) {
             e.printStackTrace();
             System.err.println(e.getClass().getName()+": " + e.getMessage());

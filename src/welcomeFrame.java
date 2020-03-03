@@ -1,4 +1,7 @@
 import javax.swing.*;
+//This is the first frame that opens when the program is executed.
+//The user will be prompted for a username and password which will then
+//be used to log into the database.
 
 class welcomeFrame extends JFrame
 {
@@ -36,6 +39,7 @@ class welcomeFrame extends JFrame
         this.setVisible(true);
     }
 
+    //Listener for button click event
     public void buttonLoginClick(String alphaVal, char[] betaVal)
     {
         String betaValString = new String(betaVal);
