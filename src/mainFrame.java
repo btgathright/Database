@@ -134,7 +134,7 @@ class mainFrame extends JFrame
         this.main.setVisible(true);
     }
 
-    mainFrame(DBController transfer, String table1, String table2, String table_name)
+    mainFrame(DBController transfer, String table1, String table2, String table_name, String str_output)
     {
         //define initial frame specifications
         this.DBcont = transfer;
@@ -238,7 +238,8 @@ class mainFrame extends JFrame
         options.add(resetButton);
         
         JPanel outputArea = new JPanel();
-        outputText = new JTextArea(); //Put text to output in here.
+        System.out.println(str_output);
+        outputText = new JTextArea(str_output); //Put text to output in here.
         outputArea.add(outputText);
         System.out.println("Special");
         
@@ -282,8 +283,10 @@ class mainFrame extends JFrame
                 System.out.println("There was an issue writing to file");
                 System.out.println(String.format("Error: %s", e.toString()));
             }
-            this.main.repaint();
-            this.main.revalidate();
+            this.main.setVisible(false);
+		    this.main.dispose();
+            this.main = new mainFrame(DBcont, (String)tableList1.getSelectedItem(), 
+                (String)tableList2.getSelectedItem(), (String)tableList1.getSelectedItem(), "");
         }
         else if (console.isSelected())
         {
@@ -302,9 +305,11 @@ class mainFrame extends JFrame
                 System.out.println("There was an issue writing to file");
                 System.out.println(String.format("Error: %s", e.toString()));
             }
-            outputText = new JTextArea(sb.toString()); //Put text to output in here.
-            this.main.repaint();
-            this.main.revalidate();
+            // outputText = new JTextArea(sb.toString()); //Put text to output in here.
+            this.main.setVisible(false);
+		    this.main.dispose();
+            this.main = new mainFrame(DBcont, (String)tableList1.getSelectedItem(), 
+                (String)tableList2.getSelectedItem(), (String)tableList1.getSelectedItem(), sb.toString());
         }
         else
         {
@@ -326,8 +331,11 @@ class mainFrame extends JFrame
                 System.out.println("There was an issue writing to file");
                 System.out.println(String.format("Error: %s", e.toString()));
             }
-            outputText = new JTextArea(sb.toString()); //Put text to output in here.
-            this.main.repaint();
+            //outputText = new JTextArea(sb.toString()); //Put text to output in here.
+            this.main.setVisible(false);
+		    this.main.dispose();
+            this.main = new mainFrame(DBcont, (String)tableList1.getSelectedItem(), 
+                (String)tableList2.getSelectedItem(), (String)tableList1.getSelectedItem(), sb.toString());
         }   
         // searchFrame sF = new searchFrame();
     }
@@ -337,7 +345,7 @@ class mainFrame extends JFrame
         this.main.setVisible(false);
         this.main.dispose();
         this.main = new mainFrame(DBcont, (String)tableList1.getSelectedItem(), 
-            (String)tableList2.getSelectedItem(), (String)tableList1.getSelectedItem()); 
+            (String)tableList2.getSelectedItem(), (String)tableList1.getSelectedItem(), ""); 
     }
 
     public void disconnectButtonClick()
@@ -355,7 +363,7 @@ class mainFrame extends JFrame
         this.main.setVisible(false);
 		this.main.dispose();
         this.main = new mainFrame(DBcont, (String)tableList1.getSelectedItem(), 
-            (String)tableList2.getSelectedItem(), (String)tableList1.getSelectedItem());
+            (String)tableList2.getSelectedItem(), (String)tableList1.getSelectedItem(), "");
     }
 
     public void table2Select() 
@@ -369,6 +377,6 @@ class mainFrame extends JFrame
         this.main.setVisible(false);
         this.main.dispose();
         this.main = new mainFrame(DBcont, (String)tableList1.getSelectedItem(), 
-            (String)tableList2.getSelectedItem(), (String)tableList1.getSelectedItem());
+            (String)tableList2.getSelectedItem(), (String)tableList2.getSelectedItem(), "");
     }
 }

@@ -26,12 +26,12 @@ public class Query {
         String names_str = String.join(",", names);
 
         this.total_query_string = 
-            String.format("SELECT %s FROM public.\"%s\" INNER JOIN \"%s\" ON (\"%s\".\"%s ID\" = \"%s\".\"ID\" AND %s.%s = '%s');",
-                names_str, table1, table2, table1, table2, table2, table2, column, value);
+            String.format("SELECT %s FROM public.\"%s\" INNER JOIN \"%s\" ON (\"%s\".\"%s ID\" = \"%s\".\"ID\" AND %s = '%s');",
+                names_str, table1, table2, table1, table2, table2, column, value);
 
         this.alternate_query_string = 
-            String.format("SELECT %s FROM public.\"%s\" INNER JOIN \"%s\" ON (\"%s\".\"%s ID\" = \"%s\".\"ID\" AND %s.%s = '%s');",
-                names_str, table1, table2, table2, table1, table1, table2, column, value);
+            String.format("SELECT %s FROM public.\"%s\" INNER JOIN \"%s\" ON (\"%s\".\"%s ID\" = \"%s\".\"ID\" AND %s = '%s');",
+                names_str, table1, table2, table2, table1, table1, column, value);
     }
 
     public String get_query_string() {
