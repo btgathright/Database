@@ -1,1 +1,0 @@
-"C:\Users\Brandon Gathright\.vscode\extensions\vscjava.vscode-java-debug-0.25.0\scripts\launcher.bat" "C:\Program Files\Java\jdk-13.0.2\bin\java.exe" -Dfile.encoding=UTF-8 @C:\windows\TEMP\cp_4d0h2ddzf9mgatdrpim8r52op.argfile jdbcpostgreSQLGUI

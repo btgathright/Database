@@ -1,5 +1,5 @@
 HOW TO RUN:
-Right click src/jdbcpostgreSQLGUI.java in VS Code and select Run.  
+Right click src/jdbcpostgreSQLGUI.java in VS Code and select Run. May need to install extensions in setup.txt 
 
 THINGS TO LOOK OUT FOR:
 This product isn't fully finished, so it suffers from a couple bugs. Firstly, the double/single 
