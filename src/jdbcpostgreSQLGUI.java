@@ -17,7 +17,6 @@ public class jdbcpostgreSQLGUI {
 
 //Add autofill for the value text box
 //Add second row of combo boxes for union and intersection querying
-//Add scroll bar or better output to the GUI.
 //Add extra combobox for common questions like top player, top team, etc.
 //Break down results from tables into English (EX: Searching for all plays with attempts returns only IDs and boolean values)
 //  *Note: Might add a selection box to switch from "For" or "Against" to search for top stats on the 

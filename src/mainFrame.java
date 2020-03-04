@@ -22,6 +22,7 @@ class mainFrame extends JFrame
     JComboBox tableList1, tableList2, columnList, sSelections;
     JTextField searchValue;
     JTextArea outputText;
+    String curOutput;
 
         // do you want everything to not be static? Cause that's totally fine
     mainFrame (DBController transfer){
@@ -52,7 +53,7 @@ class mainFrame extends JFrame
         outputButtons.add(file);
         outputButtons.add(console);
         outputButtons.add(both);
-        this.file.setSelected(true);
+        this.both.setSelected(true);
 
         
         //Search type and drop down menu
@@ -125,7 +126,7 @@ class mainFrame extends JFrame
         options.add(resetButton);
         
         JPanel outputArea = new JPanel();
-        outputText = new JTextArea(); //Put text to output in here.
+        outputText = new JTextArea(); 
         JScrollPane outputPane = new JScrollPane(outputText, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
         outputPane.setPreferredSize(new Dimension(1000,500));
         outputArea.add(outputPane);
@@ -135,9 +136,10 @@ class mainFrame extends JFrame
         this.main.setVisible(true);
     }
 
-    mainFrame(DBController transfer, String table1, String table2, String table_name, String str_output)
+    mainFrame(DBController transfer, String sTypeSelection, String table1, String table2, String table_name, String str_output)
     {
         //define initial frame specifications
+        curOutput = str_output;
         this.DBcont = transfer;
         this.main.setLocation(300,25);
         this.main.setSize(1024, 768);
@@ -164,7 +166,7 @@ class mainFrame extends JFrame
         outputButtons.add(file);
         outputButtons.add(console);
         outputButtons.add(both);
-        this.file.setSelected(true);
+        this.both.setSelected(true);
 
         
         //Search type and drop down menu
@@ -173,6 +175,7 @@ class mainFrame extends JFrame
         
         String[] selections = {"Single", "Double"};
         sSelections = new JComboBox(selections);
+        sSelections.setSelectedItem(sTypeSelection);
         
         //Table 1 and drop down menu
         JLabel Table1 = new JLabel("Table 1");
@@ -239,12 +242,10 @@ class mainFrame extends JFrame
         options.add(resetButton);
         
         JPanel outputArea = new JPanel();
-        System.out.println(str_output);
-        outputText = new JTextArea(str_output); //Put text to output in here.
+        outputText = new JTextArea(str_output); 
         JScrollPane outputPane = new JScrollPane(outputText, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
         outputPane.setPreferredSize(new Dimension(1000,500));
         outputArea.add(outputPane);
-        // System.out.println("Special");
         
         this.main.add(options, BorderLayout.PAGE_START);
         this.main.add(outputArea, BorderLayout.CENTER);
@@ -288,8 +289,9 @@ class mainFrame extends JFrame
             }
             this.main.setVisible(false);
 		    this.main.dispose();
-            this.main = new mainFrame(DBcont, (String)tableList1.getSelectedItem(), 
-                (String)tableList2.getSelectedItem(), (String)tableList1.getSelectedItem(), "");
+            this.main = new mainFrame(DBcont, (String)sSelections.getSelectedItem(),
+                (String)tableList1.getSelectedItem(), (String)tableList2.getSelectedItem(), 
+                (String)tableList1.getSelectedItem(), "");
         }
         else if (console.isSelected())
         {
@@ -308,11 +310,11 @@ class mainFrame extends JFrame
                 System.out.println("There was an issue writing to file");
                 System.out.println(String.format("Error: %s", e.toString()));
             }
-            // outputText = new JTextArea(sb.toString()); //Put text to output in here.
             this.main.setVisible(false);
 		    this.main.dispose();
-            this.main = new mainFrame(DBcont, (String)tableList1.getSelectedItem(), 
-                (String)tableList2.getSelectedItem(), (String)tableList1.getSelectedItem(), sb.toString());
+            this.main = new mainFrame(DBcont, (String)sSelections.getSelectedItem(),
+                (String)tableList1.getSelectedItem(), (String)tableList2.getSelectedItem(), 
+                (String)tableList1.getSelectedItem(), sb.toString()); 
         }
         else
         {
@@ -334,27 +336,28 @@ class mainFrame extends JFrame
                 System.out.println("There was an issue writing to file");
                 System.out.println(String.format("Error: %s", e.toString()));
             }
-            //outputText = new JTextArea(sb.toString()); //Put text to output in here.
             this.main.setVisible(false);
 		    this.main.dispose();
-            this.main = new mainFrame(DBcont, (String)tableList1.getSelectedItem(), 
-                (String)tableList2.getSelectedItem(), (String)tableList1.getSelectedItem(), sb.toString());
+            this.main = new mainFrame(DBcont, (String)sSelections.getSelectedItem(),
+                (String)tableList1.getSelectedItem(), (String)tableList2.getSelectedItem(), 
+                (String)tableList1.getSelectedItem(), sb.toString());
         }   
-        // searchFrame sF = new searchFrame();
+        searchFrame sF = new searchFrame();
     }
 
     public void resetButtonClick()
     {
         this.main.setVisible(false);
         this.main.dispose();
-        this.main = new mainFrame(DBcont, (String)tableList1.getSelectedItem(), 
-            (String)tableList2.getSelectedItem(), (String)tableList1.getSelectedItem(), ""); 
+        this.main = new mainFrame(DBcont); 
     }
 
     public void disconnectButtonClick()
     {
         this.main.setVisible(false);
-        reassureFrame dF = new reassureFrame(DBcont);
+        reassureFrame dF = new reassureFrame(DBcont, (String)sSelections.getSelectedItem(),
+            (String)tableList1.getSelectedItem(), (String)tableList2.getSelectedItem(), 
+            (String)tableList1.getSelectedItem(), curOutput);
         this.main.dispose();
     }
 
@@ -365,8 +368,9 @@ class mainFrame extends JFrame
         // columnList.repaint();
         this.main.setVisible(false);
 		this.main.dispose();
-        this.main = new mainFrame(DBcont, (String)tableList1.getSelectedItem(), 
-            (String)tableList2.getSelectedItem(), (String)tableList1.getSelectedItem(), "");
+        this.main = new mainFrame(DBcont, (String)sSelections.getSelectedItem(),
+            (String)tableList1.getSelectedItem(), (String)tableList2.getSelectedItem(), 
+            (String)tableList1.getSelectedItem(), "");
     }
 
     public void table2Select() 
@@ -379,7 +383,8 @@ class mainFrame extends JFrame
         // columnList.repaint();
         this.main.setVisible(false);
         this.main.dispose();
-        this.main = new mainFrame(DBcont, (String)tableList1.getSelectedItem(), 
-            (String)tableList2.getSelectedItem(), (String)tableList2.getSelectedItem(), "");
+        this.main = new mainFrame(DBcont, (String)sSelections.getSelectedItem(),
+            (String)tableList1.getSelectedItem(), (String)tableList2.getSelectedItem(), 
+            (String)tableList2.getSelectedItem(), "");
     }
 }

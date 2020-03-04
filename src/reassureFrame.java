@@ -9,10 +9,16 @@ class reassureFrame extends JFrame
 {
     JFrame reassureStatus = new JFrame();
     DBController sending = null;
+    String searchType, table1Val, table2Val, tablename, strOutput;
 
-    reassureFrame(DBController transfer)
+    reassureFrame(DBController transfer, String sTypeSelection, String table1, String table2, String table_name, String str_output)
     {
         sending = transfer;
+        searchType = sTypeSelection;
+        table1Val = table1;
+        table2Val = table2;
+        tablename = table_name;
+        strOutput = str_output;
         reassureStatus.setLocation(625,325);
         reassureStatus.setSize(300, 100);
         reassureStatus.setTitle("S.S. Tracker");
@@ -46,7 +52,7 @@ class reassureFrame extends JFrame
     public void noButtonClick()
     {
         reassureStatus.setVisible(false);
-        mainFrame mF = new mainFrame(sending);
+        mainFrame mF = new mainFrame(sending, searchType, table1Val, table2Val, tablename, strOutput);
         reassureStatus.dispose();
     }
 }
