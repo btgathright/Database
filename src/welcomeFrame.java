@@ -1,9 +1,12 @@
 import javax.swing.*;
+//This is the first frame that opens when the program is executed.
+//The user will be prompted for a username and password which will then
+//be used to log into the database.
 
 class welcomeFrame extends JFrame
 {
-    String name;
-    String pass;
+    JTextField username = new JTextField(15);
+    JPasswordField password = new JPasswordField(15);
 
     welcomeFrame()
     {
@@ -22,10 +25,8 @@ class welcomeFrame extends JFrame
 
         //Create login fields for username and password
         welcomePanel.add(new JLabel("Username"));
-        JTextField username = new JTextField(15);
         welcomePanel.add(username);
         welcomePanel.add(new JLabel("Password"));
-        JPasswordField password = new JPasswordField(15);
         welcomePanel.add(password);
 
         //Create login button at bottom of panel
@@ -38,6 +39,7 @@ class welcomeFrame extends JFrame
         this.setVisible(true);
     }
 
+    //Listener for button click event
     public void buttonLoginClick(String alphaVal, char[] betaVal)
     {
         String betaValString = new String(betaVal);
@@ -47,10 +49,10 @@ class welcomeFrame extends JFrame
         }
         else
         {
-            name = alphaVal;
-            pass = betaValString;
             this.setVisible(false);
-            connectionFrame cF = new connectionFrame(name, pass);
+            String pass = new String(password.getPassword());
+            dbSetup my = new dbSetup(username.getText(), pass);
+            DBController connection = new DBController(my);
             this.dispose();
         }
     }

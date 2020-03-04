@@ -1,6 +1,7 @@
 import javax.swing.*;
-import java.sql.*;
 import java.awt.GridLayout;
+
+//This is a frame that is created when a search is successful
 
 class searchFrame extends JFrame
 {

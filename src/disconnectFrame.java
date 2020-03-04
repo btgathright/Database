@@ -1,14 +1,16 @@
 import javax.swing.*;
-import java.sql.*;
 import java.awt.GridLayout;
+
+//This is the final frame that is created when the user is disconnecting from the server.
+//The user will then click "ok" and the program will terminate.
 
 class disconnectFrame extends JFrame
 {
     JFrame disconnectStatus = new JFrame();
 
-    disconnectFrame(Connection conn)
+    disconnectFrame(DBController DBdisconnect)
     {
-        try {conn.close();}
+        try {DBdisconnect.conn.close();}
         catch  (Exception e){}
         disconnectStatus.setLocation(625,325);
         disconnectStatus.setSize(100, 100);
