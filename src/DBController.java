@@ -17,7 +17,8 @@ public class DBController {
         } catch (Exception e) {
             e.printStackTrace();
             System.err.println(e.getClass().getName()+": " + e.getMessage());
-            failedFrame fF = new failedFrame();
+            //failedFrame fF = new failedFrame();
+            connectionFrame cF = new connectionFrame(this);
         }
         // If you get to this point, you've successfully connected...
     }
