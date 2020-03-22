@@ -1,24 +1,21 @@
 import java.sql.*;
 import javax.swing.*;
-// import java.awt.GridLayout;
-// import java.awt.Dimension;
 
 
 public class DBController {
 
     Connection conn = null;
 
-    public DBController(dbSetup my) {
+    public DBController(DBSetup my) {
         try {
             Class.forName("org.postgresql.Driver");
             conn = DriverManager.getConnection("jdbc:postgresql://csce-315-db.engr.tamu.edu/team14_cfb",
                 my.user, my.pswd);
-            connectionFrame cF = new connectionFrame(this);
+            ConnectionFrame cF = new ConnectionFrame(this);
         } catch (Exception e) {
             e.printStackTrace();
             System.err.println(e.getClass().getName()+": " + e.getMessage());
-            //failedFrame fF = new failedFrame();
-            connectionFrame cF = new connectionFrame(this);
+            FailedFrame fF = new FailedFrame();
         }
         // If you get to this point, you've successfully connected...
     }

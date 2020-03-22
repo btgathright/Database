@@ -3,11 +3,11 @@ import java.awt.GridLayout;
 
 //This is a frame that is created when a search is successful
 
-class searchFrame extends JFrame
+public class SearchFrame extends JFrame
 {
     JFrame searchStatus = new JFrame();
 
-    searchFrame()
+    public SearchFrame()
     {
         searchStatus.setLocation(625,325);
         searchStatus.setSize(300, 100);

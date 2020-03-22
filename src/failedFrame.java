@@ -6,11 +6,11 @@ import java.awt.GridLayout;
 //Regardless of poor connection or invalid credentials this frame will prompt
 //the user to retry logging in.
 
-class failedFrame extends JFrame
+class FailedFrame extends JFrame
 {
     JFrame failedStatus = new JFrame();
 
-    failedFrame()
+    FailedFrame()
     {
         failedStatus.setLocation(625,325);
         failedStatus.setSize(100, 100);
@@ -37,7 +37,7 @@ class failedFrame extends JFrame
     public void okButtonClick()
     {
         failedStatus.setVisible(false);
-        welcomeFrame wF = new welcomeFrame();
+        WelcomeFrame wF = new WelcomeFrame();
         failedStatus.dispose();
     }
 }
