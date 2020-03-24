@@ -5,7 +5,7 @@ Samiha Elahi
 Johnny Hernandez
 CSCE 315
 3/23/2020
- */
+*/
 
 import javax.swing.*;
 import java.awt.GridLayout;

@@ -1,3 +1,12 @@
+/*
+Brandon Gathright
+Seth Hamilton
+Samiha Elahi
+Johnny Hernandez
+CSCE 315
+3/23/2020
+*/
+
 public class Triplet<T1, T2, T3> {
     public T1 first;
     public T2 second;

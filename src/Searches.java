@@ -1,3 +1,12 @@
+/*
+Brandon Gathright
+Seth Hamilton
+Samiha Elahi
+Johnny Hernandez
+CSCE 315
+3/23/2020
+*/
+
 import java.sql.*;
 import java.util.*;
 
@@ -323,7 +332,7 @@ public class Searches
         boolean found = false;
         Set<Long> keys = player_names.keySet();
         for(Long key: keys){
-            if (player_names.get(key) == value1) {
+            if (player_names.get(key).equals(value1)) {
                 player1_id = key;
                 found = true;
                 break;
@@ -337,7 +346,7 @@ public class Searches
         found = false;
         keys = player_names.keySet();
         for(Long key: keys){
-            if (player_names.get(key) == value2) {
+            if (player_names.get(key).equals(value2)) {
                 player2_id = key;
                 found = true;
                 break;

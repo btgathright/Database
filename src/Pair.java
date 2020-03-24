@@ -1,3 +1,12 @@
+/*
+Brandon Gathright
+Seth Hamilton
+Samiha Elahi
+Johnny Hernandez
+CSCE 315
+3/23/2020
+*/
+
 // Creating this class because Java is a stupid language 
 // and doesn't have one built in by default - Seth Hamilton
 
