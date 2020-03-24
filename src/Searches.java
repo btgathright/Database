@@ -214,21 +214,53 @@ public class Searches
         frontier.add(team1_id);
         while (frontier.size() > 0) {
             long team_id = frontier.poll();
-            System.out.println("HOWDY");
+
+            if (team_id == team2_id) {
+                break;
+            }
+
+            if (visited_teams.contains(team_id)) {
+                continue;
+            }
+            // if (team_to_games.get(team_id) == null) 
+            //     continue;
+            
             for (var game : team_to_games.get(team_id)) {
                 if (visited_games.contains(game.first)) 
                     continue;
-
-                long winner = game_to_winner.get(game.first);
-                if (visited_teams.contains(winner) || winner != team_id) 
-                    continue;
-
-                frontier.add(winner);
-                teams.put(winner, new Pair<Long, String>(team_id, game_dates.get(game.first)));
                 
-                visited_teams.add(winner);
+                System.out.println(game_to_winner.get(game.first));
+                long winner = game_to_winner.get(game.first);
+                System.out.println("1!");
+                
+                if (visited_teams.contains(winner) || winner != team_id) {
+                    visited_games.add(game.first);
+                    continue;
+                }
+                
+                System.out.println("2!");
+                if (winner != team_id) {
+                    System.out.println("We have a problem");
+                }
+                
+                long loser = 0;
+                if (game_to_teams.get(game.first).first != winner) {
+                    loser = game_to_teams.get(game.first).first;
+                } else {
+                    loser = game_to_teams.get(game.first).second;
+                }
+                
+                frontier.add(loser);
+                teams.put(loser, new Pair<Long, String>(team_id, game_dates.get(game.first)));
+                
                 visited_games.add(game.first);
             }
+
+            visited_teams.add(team_id);
+        }
+
+        if (frontier.size() == 0) {
+            return "Bragging rights connection between teams could not be found. Please try a different pair";
         }
 
         Stack<String> msg_stack = new Stack<String>();
@@ -239,7 +271,7 @@ public class Searches
             String name = team_names.get(team2_id);
             String other_name = team_names.get(other_team_id);
            
-            msg_stack.push(String.format("%s and %s played a game against each other on %s", other_name, name, parent.second));
+            msg_stack.push(String.format("%s beat %s on %s\n", other_name, name, parent.second));
 
             team2_id = parent.first;
         }
@@ -473,11 +505,11 @@ public class Searches
            
 
             if (entry.third == 'h') {
-                msg_stack.push(String.format("%s and %s came from the same hometown: %s", other_name, name, player_to_hometown.get(player2_id)));
+                msg_stack.push(String.format("%s and %s came from the same hometown: %s\n", other_name, name, player_to_hometown.get(player2_id)));
             } else if (entry.third == 't') {
-                msg_stack.push(String.format("%s and %s both played for %s", other_name, name, team_name));
+                msg_stack.push(String.format("%s and %s both played for %s\n", other_name, name, team_name));
             } else if (entry.third == 'g') {
-                msg_stack.push(String.format("%s and %s played a game against each other on %s", other_name, name, entry.second));
+                msg_stack.push(String.format("%s and %s played a game against each other on %s\n", other_name, name, entry.second));
             }
 
             player2_id = entry.first;
@@ -486,7 +518,6 @@ public class Searches
         StringBuilder sb = new StringBuilder();
         while (!msg_stack.isEmpty()) {
             sb.append(msg_stack.pop());
-            sb.append("\n");
         }
 
         return sb.toString();
