@@ -7,7 +7,7 @@ CSCE 315
 2/29/2020
  */
 
-public class jdbcpostgreSQLGUI {
+public class GUI {
   public static void main(String args[]) {
     //Open frame for welcome user prompt
     WelcomeFrame wF = new WelcomeFrame();
