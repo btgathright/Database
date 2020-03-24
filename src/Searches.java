@@ -229,16 +229,13 @@ public class Searches
                 if (visited_games.contains(game.first)) 
                     continue;
                 
-                System.out.println(game_to_winner.get(game.first));
                 long winner = game_to_winner.get(game.first);
-                System.out.println("1!");
-                
+
                 if (visited_teams.contains(winner) || winner != team_id) {
                     visited_games.add(game.first);
                     continue;
                 }
                 
-                System.out.println("2!");
                 if (winner != team_id) {
                     System.out.println("We have a problem");
                 }

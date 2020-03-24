@@ -1,14 +1,20 @@
 HOW TO RUN:
-Right click src/jdbcpostgreSQLGUI.java in VS Code and select Run. May need to install extensions in setup.txt 
+Type compile.bat into the command line
 
-THINGS TO LOOK OUT FOR:
-This product isn't fully finished, so it suffers from a couple bugs. Firstly, the double/single 
-drop down is ALWAYS reset when you select a new table name for either table1 or table2 (meaning it
-should be the last thing you change if you're interested in doing a double query). 
+HOW TO USE:
+There's more in the UI than is actually implemented. 
 
-What is a double query? Basically it's a query that matches one table with columns that equal a value
-to the base table (table1) through foreign keys. The relationship can go either way; the code should 
-be robust enough to handle that. 
+If you want to see our answer to question 1:
+1. Go to the chain tab and make sure "Team" is selected in the first dropdown and "Name" in the second
+2. Type in the name of team 1 in the first box and team 2 in the second box
+3. Click "Search"
 
-If you don't see any output in the output box, make sure you've selected the right radio button 
-at the top of the UI. 
+If you want to see our answer to question 2:
+1. Go to the chain tab and make sure "Player" is selected in the dropdown and "Name" in the second
+2. Type in the full name of player 1 in the first box and player 2 in the second box
+3. Click "Search"
+
+If you want to see our answer to question 3:
+1. Go to the simple tab 
+2. Type in the name of the team you're interested in
+3. Click "Search"

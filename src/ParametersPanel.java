@@ -24,7 +24,7 @@ public class ParametersPanel extends JPanel
     private String tablenames[], questions[] = {"Most Yards", "Most Touchdowns", "Most Sacks"}, columnComboVals2[] = {"Name", "ID"},
         tablenames1[] = {"Team", "Player", "Conference"}, tablenames2[] = {"Team", "Player"};
 
-    private static JComboBox tableComboBox, tableComboBox2, table1ComboBox, table2ComboBox, columnComboBox, columnComboBox2,
+    private static JComboBox<String> tableComboBox, tableComboBox2, table1ComboBox, table2ComboBox, columnComboBox, columnComboBox2,
         column1ComboBox, column2ComboBox, questionComboBox;
 
     private JLabel tableLabel, tableLabel2, table1Label, table2Label, columnLabel, columnLabel2, column1Label, column2Label,
@@ -68,15 +68,15 @@ public class ParametersPanel extends JPanel
         }
 
         //Initialize all combo boxes
-        tableComboBox = new JComboBox(tablenames1);
-        tableComboBox2 = new JComboBox(tablenames2);
-        table1ComboBox = new JComboBox(tablenames);
-        table2ComboBox = new JComboBox(tablenames);
-        columnComboBox = new JComboBox(columnComboVals2);
-        columnComboBox2 = new JComboBox(columnComboVals2);
-        column1ComboBox = new JComboBox(columnComboVals);
-        column2ComboBox = new JComboBox(columnComboVals);
-        questionComboBox = new JComboBox(questions);
+        tableComboBox = new JComboBox<String>(tablenames1);
+        tableComboBox2 = new JComboBox<String>(tablenames2);
+        table1ComboBox = new JComboBox<String>(tablenames);
+        table2ComboBox = new JComboBox<String>(tablenames);
+        columnComboBox = new JComboBox<String>(columnComboVals2);
+        columnComboBox2 = new JComboBox<String>(columnComboVals2);
+        column1ComboBox = new JComboBox<String>(columnComboVals);
+        column2ComboBox = new JComboBox<String>(columnComboVals);
+        questionComboBox = new JComboBox<String>(questions);
 
         //Initialize all event listeners
         table1ComboBox.addActionListener(e -> table1Select());
