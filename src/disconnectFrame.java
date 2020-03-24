@@ -4,11 +4,11 @@ import java.awt.GridLayout;
 //This is the final frame that is created when the user is disconnecting from the server.
 //The user will then click "ok" and the program will terminate.
 
-class disconnectFrame extends JFrame
+class DisconnectFrame extends JFrame
 {
     JFrame disconnectStatus = new JFrame();
 
-    disconnectFrame(DBController DBdisconnect)
+    DisconnectFrame(DBController DBdisconnect)
     {
         try {DBdisconnect.conn.close();}
         catch  (Exception e){}

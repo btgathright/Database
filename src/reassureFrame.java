@@ -1,24 +1,20 @@
 import javax.swing.*;
 import java.sql.*;
 import java.awt.GridLayout;
+import java.awt.Window;
+import java.util.List;
+import java.util.ArrayList;
 
 //This is a frame that is created when the user disconnects from the server.
 //This frame will prompt the user if this is what they intended to do before disconnecting.
 
-class reassureFrame extends JFrame
+public class ReassureFrame extends JFrame
 {
     JFrame reassureStatus = new JFrame();
     DBController sending = null;
-    String searchType, table1Val, table2Val, tablename, strOutput;
 
-    reassureFrame(DBController transfer, String sTypeSelection, String table1, String table2, String table_name, String str_output)
+    public ReassureFrame(DBController transfer)
     {
-        sending = transfer;
-        searchType = sTypeSelection;
-        table1Val = table1;
-        table2Val = table2;
-        tablename = table_name;
-        strOutput = str_output;
         reassureStatus.setLocation(625,325);
         reassureStatus.setSize(300, 100);
         reassureStatus.setTitle("S.S. Tracker");
@@ -45,14 +41,28 @@ class reassureFrame extends JFrame
     public void yesButtonClick()
     {
         reassureStatus.setVisible(false);
-        disconnectFrame dF = new disconnectFrame(sending);
+        List<Window> openWindows = new ArrayList<Window>();
+        for (Window w: Window.getWindows())
+        {
+            if (w.isShowing())
+            {
+                openWindows.add(w);
+            }
+        }
+        for (Window w: openWindows)
+        {
+            w.setVisible(false);
+            w.dispose();
+        }
+        DisconnectFrame dF = new DisconnectFrame(sending);
         reassureStatus.dispose();
     }
 
     public void noButtonClick()
     {
         reassureStatus.setVisible(false);
-        mainFrame mF = new mainFrame(sending, searchType, table1Val, table2Val, tablename, strOutput);
+        TrackerFrame tf = TrackerFrame.getInstance();
+        tf.setVisible(true);
         reassureStatus.dispose();
     }
 }

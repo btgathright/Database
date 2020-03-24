@@ -3,12 +3,39 @@ import java.awt.GridLayout;
 
 //This is a frame that is created when a search is successful
 
-class searchFrame extends JFrame
+public class SearchFrame extends JFrame
 {
     JFrame searchStatus = new JFrame();
 
-    searchFrame()
+    public SearchFrame(DBController controller)
     {
+        String searchType = ParametersPanel.getSearchType();
+        String values[], results = null;
+        if (searchType == "Simple")
+        {
+            values = ParametersPanel.getSimpleValues();
+            //Do simple search with these values
+            results = "Simple search";
+        }
+        else if (searchType == "Chain")
+        {
+            values = ParametersPanel.getChainValues();
+            //Do chain search with these values
+            results = "Chain Search";
+        }
+        else if (searchType == "Advanced")
+        {
+            values = ParametersPanel.getAdvancedValues();
+            //Do advanced search with these values
+            results = "Advanced Search";
+        }
+
+        //Formats the results
+        //format results here
+
+        //Updates result panel
+        ResultPanel.showResults(results);
+
         searchStatus.setLocation(625,325);
         searchStatus.setSize(300, 100);
         searchStatus.setTitle("S.S. Tracker");

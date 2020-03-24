@@ -4,12 +4,12 @@ import java.awt.GridLayout;
 //This is a frame that is displayed when connection to the database is successful
 //The user will then click "ok" to continue to the main panel of the program.
 
-class connectionFrame extends JFrame
+public class ConnectionFrame extends JFrame
 {
     JFrame connectionStatus = new JFrame();
     DBController sending = null;
 
-    connectionFrame(DBController transfer)
+    public ConnectionFrame(DBController transfer)
     {
         sending = transfer;
         connectionStatus.setLocation(625,325);
@@ -37,7 +37,8 @@ class connectionFrame extends JFrame
     public void okButtonClick()
     {
         connectionStatus.setVisible(false);
-        mainFrame mf = new mainFrame(sending);
+        TrackerFrame tf = new TrackerFrame(sending);
+        tf.setVisible(true);
         connectionStatus.dispose();
     }
 }

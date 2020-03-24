@@ -1,14 +1,23 @@
+/*
+Brandon Gathright
+Seth Hamilton
+Samiha Elahi
+Johnny Hernandez
+CSCE 315
+2/29/2020
+ */
+
 import javax.swing.*;
 //This is the first frame that opens when the program is executed.
 //The user will be prompted for a username and password which will then
 //be used to log into the database.
 
-class welcomeFrame extends JFrame
+public class WelcomeFrame extends JFrame
 {
-    JTextField username = new JTextField(15);
-    JPasswordField password = new JPasswordField(15);
+    private JTextField username = new JTextField(15);
+    private JPasswordField password = new JPasswordField(15);
 
-    welcomeFrame()
+    public WelcomeFrame()
     {
         //Initialize frame location and size
         this.setLocation(512, 384);
@@ -51,7 +60,7 @@ class welcomeFrame extends JFrame
         {
             this.setVisible(false);
             String pass = new String(password.getPassword());
-            dbSetup my = new dbSetup(username.getText(), pass);
+            DBSetup my = new DBSetup(username.getText(), pass);
             DBController connection = new DBController(my);
             this.dispose();
         }
