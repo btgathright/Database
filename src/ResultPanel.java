@@ -3,8 +3,8 @@ import java.awt.*;
 
 public class ResultPanel extends JPanel
 {
-    private JTextArea resultText;
-    private JScrollPane resultPane;
+    private static JTextArea resultText;
+    private static JScrollPane resultPane;
 
     public ResultPanel()
     {
@@ -15,4 +15,12 @@ public class ResultPanel extends JPanel
         this.setLayout(new BorderLayout());
         this.add(resultPane, BorderLayout.CENTER);
     } //End constructor
+
+    public static void showResults(String results)
+    {
+        resultText.setText(results);
+        resultText.setLineWrap(true);
+        resultText.setWrapStyleWord(true);
+    }
+
 } //End class

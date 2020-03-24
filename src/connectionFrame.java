@@ -37,7 +37,7 @@ public class ConnectionFrame extends JFrame
     public void okButtonClick()
     {
         connectionStatus.setVisible(false);
-        TrackerFrame tf = TrackerFrame.getInstance();
+        TrackerFrame tf = new TrackerFrame(sending);
         tf.setVisible(true);
         connectionStatus.dispose();
     }
