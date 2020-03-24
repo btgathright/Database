@@ -21,7 +21,8 @@ public class ParametersPanel extends JPanel
     private static JTextField valueText, value1Text, value1Text2, value2Text, value2Text2;
     private static JRadioButton forButton, againstButton, unionButton, intersectionButton;
     private Vector<String> columnComboVals;
-    private String tablenames[], questions[] = {"Q1", "Q2", "Q3"};
+    private String tablenames[], questions[] = {"Q1", "Q2", "Q3"}, columnComboVals2[] = {"Name", "ID"},
+        tablenames1[] = {"Team", "Player", "Conference"}, tablenames2[] = {"Team", "Player"};
 
     private static JComboBox tableComboBox, tableComboBox2, table1ComboBox, table2ComboBox, columnComboBox, columnComboBox2,
         column1ComboBox, column2ComboBox, questionComboBox;
@@ -67,19 +68,17 @@ public class ParametersPanel extends JPanel
         }
 
         //Initialize all combo boxes
-        tableComboBox = new JComboBox(tablenames);
-        tableComboBox2 = new JComboBox(tablenames);
+        tableComboBox = new JComboBox(tablenames1);
+        tableComboBox2 = new JComboBox(tablenames2);
         table1ComboBox = new JComboBox(tablenames);
         table2ComboBox = new JComboBox(tablenames);
-        columnComboBox = new JComboBox(columnComboVals);
-        columnComboBox2 = new JComboBox(columnComboVals);
+        columnComboBox = new JComboBox(columnComboVals2);
+        columnComboBox2 = new JComboBox(columnComboVals2);
         column1ComboBox = new JComboBox(columnComboVals);
         column2ComboBox = new JComboBox(columnComboVals);
         questionComboBox = new JComboBox(questions);
 
         //Initialize all event listeners
-        tableComboBox.addActionListener(e -> tableSelect());
-        tableComboBox2.addActionListener(e -> tableSelect2());
         table1ComboBox.addActionListener(e -> table1Select());
         table2ComboBox.addActionListener(e -> table2Select());
 
@@ -145,11 +144,7 @@ public class ParametersPanel extends JPanel
         column2ComboBox.setPreferredSize(new Dimension(200, 25));
         questionComboBox.setPreferredSize(new Dimension(200, 25));
         valueText.setPreferredSize(new Dimension(200, 25));
-        //value1Text.setPreferredSize(new Dimension(200, 25)); //this text box won't format to the proper size
-        //If working then change GridBagContraints in value1Panel to NONE instead of HORIZONTAL
         value1Text2.setPreferredSize(new Dimension(200, 25));
-        //value2Text.setPreferredSize(new Dimension(200, 25)); //this text box won't format to the proper size
-        //If working then change GridBagContraints in value2Panel to NONE instead of HORIZONTAL
         value2Text2.setPreferredSize(new Dimension(200, 25));
 
         //Create table panel
@@ -327,21 +322,6 @@ public class ParametersPanel extends JPanel
         this.repaint();
     }
 
-    public void tableSelect2()
-    {
-        columnComboBox2.removeAllItems();
-        String[] newVals = DBHelper.get_column_names(cont, (String)tableComboBox2.getSelectedItem());
-        for (String s: newVals)
-        {
-            String newItem;
-            //Build newItem string for just the column name and not "tablename.columnname"
-            columnComboBox2.addItem(s); //Replace s with newItem once above is done
-        }
-        this.invalidate();
-        this.validate();
-        this.repaint();
-    }
-
     public void table1Select()
     {
         column1ComboBox.removeAllItems();
@@ -401,10 +381,10 @@ public class ParametersPanel extends JPanel
         }
 
         String[] values = {
-            (String)questionComboBox.getSelectedItem(),
-            simpleButtonSelection,
-            (String)tableComboBox.getSelectedItem(),
-            (String)columnComboBox.getSelectedItem(),
+            //(String)questionComboBox.getSelectedItem(),
+            //simpleButtonSelection,
+            //(String)tableComboBox.getSelectedItem(),
+            //(String)columnComboBox.getSelectedItem(),
             (String)valueText.getText()
         };
         return values;
@@ -414,7 +394,7 @@ public class ParametersPanel extends JPanel
     {
         String[] values = {
             (String)tableComboBox2.getSelectedItem(),
-            (String)columnComboBox2.getSelectedItem(),
+            //(String)columnComboBox2.getSelectedItem(),
             (String)value1Text2.getText(),
             (String)value2Text2.getText()
         };

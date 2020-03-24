@@ -8,7 +8,6 @@ CSCE 315
  */
 
 import javax.swing.*;
-import java.sql.*;
 import java.awt.GridLayout;
 
 //This is a frame that is created when connection to the server is failed.

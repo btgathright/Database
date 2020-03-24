@@ -23,24 +23,25 @@ public class SearchFrame extends JFrame
         if (searchType == "Simple")
         {
             values = ParametersPanel.getSimpleValues();
-            //Do simple search with these values
-            results = "Simple search";
+            results = Searches.simpleSearch(controller, values[0]);
         }
         else if (searchType == "Chain")
         {
             values = ParametersPanel.getChainValues();
-            //Do chain search with these values
-            results = "Chain Search";
+            if (values[0] == "Team")
+            {
+                results = Searches.chainSearchTeam(controller, values[1], values[2]);
+            }
+            else if (values[0] == "Player")
+            {
+                results = Searches.chainSearchPlayer(controller, values[1], values[2]);
+            }
         }
         else if (searchType == "Advanced")
         {
             values = ParametersPanel.getAdvancedValues();
-            //Do advanced search with these values
             results = "Advanced Search";
         }
-
-        //Formats the results
-        //format results here
 
         //Updates result panel
         ResultPanel.showResults(results);
