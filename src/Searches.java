@@ -131,15 +131,23 @@ public class Searches
             while(res.next()) {
                 long game_id = Long.parseLong(res.getString(1));
                 String game_date = res.getString("Date");
-                game_dates.put(game_id, game_date);
 
-                long hteam_id = Long.parseLong(res.getString(8));
+                if (res.getString("Winner ID") == null) {
+                    res.next();
+                    continue;
+                }
+
+                long winner = Long.parseLong(res.getString("Winner ID"));
+                game_to_winner.put(game_id, winner);
+                game_dates.put(game_id, game_date);
+                
+                long hteam_id = Long.parseLong(res.getString(9));
                 String hteam_name = res.getString("Name");
                 team_names.put(hteam_id, hteam_name);
 
                 res.next();
 
-                long vteam_id = Long.parseLong(res.getString(8));
+                long vteam_id = Long.parseLong(res.getString(9));
                 String vteam_name = res.getString("Name");
                 team_names.put(vteam_id, vteam_name);
 
@@ -158,12 +166,9 @@ public class Searches
                 temp.add(new Pair<Long, String>(game_id, game_date));
             
                 Pair<Long, Long> teams = game_to_teams.get(game_id);
-                if (temp == null) {
+                if (teams == null) {
                     game_to_teams.put(game_id, new Pair<Long, Long>(hteam_id, vteam_id));
-                }
-                
-                long winner = Long.parseLong(res.getString("Winner ID"));
-                game_to_winner.put(game_id, winner);
+                }   
             }
         } catch (Exception e) {
             System.out.println("Error2: " + e.toString());
@@ -171,9 +176,36 @@ public class Searches
         // END - BUILDING GRAPH IN MEMORY
         
         // TODO: Need to figure a way to get this programmatically..
-        long team1_id = 5;
-        long team2_id = 10;
+        long team1_id = 72735;
+        boolean found = false;
+        Set<Long> keys = team_names.keySet();
+        for(Long key: keys){
+            if (team_names.get(key).equals(value1)) {
+                System.out.println("Found: " + value1 + " in the database of team/game combos with wins");
+                team1_id = key;
+                found = true;
+                break;
+            }
+        }
+        if (!found) {
+            return "Team 1's name couldn't be found in the database of team/game combos with recorded wins. Please check your spelling/capitalization and try again or try a different team";
+        }
 
+        long team2_id = 81735;
+        found = false;
+        for(Long key: keys){
+            if (team_names.get(key).equals(value2)) {
+                System.out.println("Found: " + value2 + " in the database of team/game combos with wins");
+                team2_id = key;
+                found = true;
+                break;
+            }
+        }
+        if (!found) {
+            return "Team 2's name couldn't be found in the database of team/game combos with recorded wins. Please check your spelling/capitalization and try again or try a different team";
+        }
+
+        
         HashMap<Long, Pair<Long, String>> teams = new HashMap<Long, Pair<Long, String>>();
         HashSet<Long> visited_teams = new HashSet<Long>();
         HashSet<Long> visited_games = new HashSet<Long>();
@@ -182,6 +214,7 @@ public class Searches
         frontier.add(team1_id);
         while (frontier.size() > 0) {
             long team_id = frontier.poll();
+            System.out.println("HOWDY");
             for (var game : team_to_games.get(team_id)) {
                 if (visited_games.contains(game.first)) 
                     continue;
@@ -284,19 +317,18 @@ public class Searches
         qString = String.format("SELECT * FROM public.\"Game\" INNER JOIN public.\"Team\" ON (\"Game\".\"HTeam ID\" = \"Team\".\"ID\" OR \"Game\".\"VTeam ID\" = \"Team\".\"ID\");");
         q = new Query(qString);
         ResultSet res2 = controller.query(q);
-        int z = 0;
         try {
-            while(res.next()) {
-                long game_id = Long.parseLong(res.getString(1));
+            while(res2.next()) {
+                long game_id = Long.parseLong(res2.getString(1));
                 String game_date = res2.getString("Date");
                 game_dates.put(game_id, game_date);
 
-                long hteam_id = Long.parseLong(res.getString("HTeam ID"));
+                long hteam_id = Long.parseLong(res2.getString(9));
                 String hteam_name = res2.getString("Name");
 
                 res2.next();
 
-                long vteam_id = Long.parseLong(res2.getString("VTeam ID"));
+                long vteam_id = Long.parseLong(res2.getString(9));
                 String vteam_name = res2.getString("Name");
 
                 ArrayList<Pair<Long, String>> temp = team_to_games.get(hteam_id);
@@ -322,9 +354,11 @@ public class Searches
                 temp.add(new Pair<Long, String>(vteam_id, vteam_name));
             }
         } catch (Exception e) {
-            System.out.println("Error4: " + e.toString());
+            System.out.println("Error 4: " + e.toString());
         }
         // END - Load search space into memory
+
+        System.out.println(team_to_games.size());
 
         HashMap<Long, Triplet<Long, String, Character>> players = new HashMap<Long, Triplet<Long, String, Character>>();
         HashSet<Long> visited_players = new HashSet<Long>();
@@ -399,6 +433,10 @@ public class Searches
                     visited_teams.add(team_id);
                 }
     
+                // System.out.println("HOWDY!");
+                // System.out.println(team_id);
+                // System.out.println(team_to_games.get(team_id));
+
                 //The last error is thrown inside this for loop
                 for (var game : team_to_games.get(team_id)) {
                     if (visited_games.contains(game.first)) 
@@ -421,7 +459,7 @@ public class Searches
             }
         }
         catch (Exception e){
-            System.out.println("Error5:" + e.toString());
+            System.out.println("Error 5:" + e.toString());
         }
 
         Stack<String> msg_stack = new Stack<String>();
