@@ -1,5 +1,13 @@
+/*
+Brandon Gathright
+Seth Hamilton
+Samiha Elahi
+Johnny Hernandez
+CSCE 315
+3/23/2020
+ */
+
 import javax.swing.*;
-import java.sql.*;
 import java.awt.GridLayout;
 import java.awt.Window;
 import java.util.List;

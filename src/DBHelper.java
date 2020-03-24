@@ -1,3 +1,12 @@
+/*
+Brandon Gathright
+Seth Hamilton
+Samiha Elahi
+Johnny Hernandez
+CSCE 315
+3/23/2020
+ */
+
 import java.util.*;
 import java.sql.*;
 
