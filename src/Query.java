@@ -1,12 +1,3 @@
-/*
-Brandon Gathright
-Seth Hamilton
-Samiha Elahi
-Johnny Hernandez
-CSCE 315
-3/23/2020
- */
-
 public class Query {
     // This object just creates a query string using 2 constructors.
     // Pass an object of this type to a query call on a DBController object to perform a query. 
@@ -17,6 +8,7 @@ public class Query {
 
     public Query(String s) {
         total_query_string = s;
+        alternate_query_string = s;
     }
 
     // Basic Query

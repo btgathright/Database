@@ -24,14 +24,19 @@ public class Searches
         
         String qString = String.format("SELECT \"ID\" FROM public.\"Team\" WHERE \"Name\" = '%s';", team_name);
         Query q = new Query(qString);
-        ResultSet temp_rs1 = controller.query(q);
+        ResultSet rs1 = controller.query(q);
         long team_id = -1;
-        while(temp_rs1.next()) {
-            team_id = Long.parseLong(temp_rs1.getString(1));
-        }
 
-        if (team_id == -1) {
-            return "Team Name couldn't be found in the database. Please check you spelling/capitalization";
+        try {
+            rs1.next();
+            team_id = Long.parseLong(rs1.getString(1));
+    
+            if (team_id == -1) {
+                return "Team Name couldn't be found in the database. Please check you spelling/capitalization";
+            }
+        }
+        catch (Exception e){
+            System.out.println("Error:" + e.toString());
         }
         
         // 2. Store all the games this team has played in mem 
@@ -88,10 +93,10 @@ public class Searches
         try {
             qString = String.format("SELECT \"Name\" FROM public.\"Team\" WHERE \"ID\" = '%d';", max_yards_team_id);
             q = new Query(qString);
-            ResultSet temp_rs1 = controller.query(q);
+            rs1 = controller.query(q);
             String opposing_name = new String();
-            while(temp_rs1.next()) {
-                opposing_name = temp_rs1.getString(1);
+            while(rs1.next()) {
+                opposing_name = rs1.getString(1);
             }
 
             qString = String.format("SELECT \"Name\" FROM public.\"Team\" WHERE \"ID\" = '%d';", team_id);
@@ -269,7 +274,7 @@ public class Searches
                 temp.add(new Pair<Long, String>(team_id, team_name));
             }
         } catch (Exception e) {
-            System.out.println("Error1: " + e.toString());
+            System.out.println("Error3: " + e.toString());
         }
         
         HashMap<Long, ArrayList<Pair<Long, String>>> team_to_games = new HashMap<Long, ArrayList<Pair<Long, String>>>();
@@ -278,21 +283,21 @@ public class Searches
         
         qString = String.format("SELECT * FROM public.\"Game\" INNER JOIN public.\"Team\" ON (\"Game\".\"HTeam ID\" = \"Team\".\"ID\" OR \"Game\".\"VTeam ID\" = \"Team\".\"ID\");");
         q = new Query(qString);
-        res = controller.query(q);
+        ResultSet res2 = controller.query(q);
         int z = 0;
         try {
             while(res.next()) {
                 long game_id = Long.parseLong(res.getString(1));
-                String game_date = res.getString("Date");
+                String game_date = res2.getString("Date");
                 game_dates.put(game_id, game_date);
 
-                long hteam_id = Long.parseLong(res.getString(8));
-                String hteam_name = res.getString("Name");
+                long hteam_id = Long.parseLong(res.getString("HTeam ID"));
+                String hteam_name = res2.getString("Name");
 
-                res.next();
+                res2.next();
 
-                long vteam_id = Long.parseLong(res.getString(8));
-                String vteam_name = res.getString("Name");
+                long vteam_id = Long.parseLong(res2.getString("VTeam ID"));
+                String vteam_name = res2.getString("Name");
 
                 ArrayList<Pair<Long, String>> temp = team_to_games.get(hteam_id);
                 if (temp == null) {
@@ -317,8 +322,7 @@ public class Searches
                 temp.add(new Pair<Long, String>(vteam_id, vteam_name));
             }
         } catch (Exception e) {
-            System.out.println(z);
-            System.out.println("Error2: " + e.toString());
+            System.out.println("Error4: " + e.toString());
         }
         // END - Load search space into memory
 
@@ -358,61 +362,66 @@ public class Searches
 
         Queue<Long> frontier = new LinkedList<Long>();
         frontier.add(player1_id);
-        
-        while (!frontier.isEmpty()) {
-            long player_id = frontier.poll();
-
-            if (player_id == player2_id) {
-                break;
-            }
-
-            if (visited_players.contains(player_id)) {
-                continue;
-            }
-            visited_players.add(player_id);
-
-            // Get this player's hometown and team id
-            String hometown = player_to_hometown.get(player_id);
-            long team_id = player_to_teams.get(player_id).get(0).first;
-
-            if (hometown != null && !visited_hometowns.contains(hometown)) {
-                for (var x : hometown_to_players.get(hometown)) {
-                    if (!visited_players.contains(x.first)) {
-                        players.put(x.first, new Triplet<Long, String, Character>(player_id, "", 'h'));
-                        frontier.add(x.first);
-                    }
-                } 
-                visited_hometowns.add(hometown);
-            }     
-            
-            if (!visited_teams.contains(team_id)) {
-                for (var i : team_to_players.get(team_id)) {
-                    if (!visited_players.contains(i.first)) {
-                        players.put(i.first, new Triplet<Long, String, Character>(player_id, "", 't'));
-                        frontier.add(i.first);
-                    }
+        try{
+            while (!frontier.isEmpty()) {
+                long player_id = frontier.poll();
+    
+                if (player_id == player2_id) {
+                    break;
                 }
-                visited_teams.add(team_id);
-            }
-
-            for (var game : team_to_games.get(team_id)) {
-                if (visited_games.contains(game.first)) 
+    
+                if (visited_players.contains(player_id)) {
                     continue;
-
-                for (var team : game_to_teams.get(game.first)) {
-                    if (team.first == team_id || visited_teams.contains(team.first)) 
-                        continue; 
-
-                    for (var p : team_to_players.get(team.first)) {
-                        if (!visited_players.contains(p.first)) {
-                            players.put(p.first, new Triplet<Long, String, Character>(player_id, game_dates.get(game.first), 'g'));
-                            frontier.add(p.first);
+                }
+                visited_players.add(player_id);
+    
+                // Get this player's hometown and team id
+                String hometown = player_to_hometown.get(player_id);
+                long team_id = player_to_teams.get(player_id).get(0).first;
+    
+                if (hometown != null && !visited_hometowns.contains(hometown)) {
+                    for (var x : hometown_to_players.get(hometown)) {
+                        if (!visited_players.contains(x.first)) {
+                            players.put(x.first, new Triplet<Long, String, Character>(player_id, "", 'h'));
+                            frontier.add(x.first);
+                        }
+                    } 
+                    visited_hometowns.add(hometown);
+                }     
+                
+                if (!visited_teams.contains(team_id)) {
+                    for (var i : team_to_players.get(team_id)) {
+                        if (!visited_players.contains(i.first)) {
+                            players.put(i.first, new Triplet<Long, String, Character>(player_id, "", 't'));
+                            frontier.add(i.first);
                         }
                     }
-                    visited_teams.add(team.first);
+                    visited_teams.add(team_id);
                 }
-                visited_games.add(game.first);
+    
+                //The last error is thrown inside this for loop
+                for (var game : team_to_games.get(team_id)) {
+                    if (visited_games.contains(game.first)) 
+                        continue;
+    
+                    for (var team : game_to_teams.get(game.first)) {
+                        if (team.first == team_id || visited_teams.contains(team.first)) 
+                            continue; 
+    
+                        for (var p : team_to_players.get(team.first)) {
+                            if (!visited_players.contains(p.first)) {
+                                players.put(p.first, new Triplet<Long, String, Character>(player_id, game_dates.get(game.first), 'g'));
+                                frontier.add(p.first);
+                            }
+                        }
+                        visited_teams.add(team.first);
+                    }
+                    visited_games.add(game.first);
+                }
             }
+        }
+        catch (Exception e){
+            System.out.println("Error5:" + e.toString());
         }
 
         Stack<String> msg_stack = new Stack<String>();

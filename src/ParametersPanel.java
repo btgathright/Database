@@ -21,7 +21,7 @@ public class ParametersPanel extends JPanel
     private static JTextField valueText, value1Text, value1Text2, value2Text, value2Text2;
     private static JRadioButton forButton, againstButton, unionButton, intersectionButton;
     private Vector<String> columnComboVals;
-    private String tablenames[], questions[] = {"Q1", "Q2", "Q3"}, columnComboVals2[] = {"Name", "ID"},
+    private String tablenames[], questions[] = {"Most Yards", "Most Touchdowns", "Most Sacks"}, columnComboVals2[] = {"Name", "ID"},
         tablenames1[] = {"Team", "Player", "Conference"}, tablenames2[] = {"Team", "Player"};
 
     private static JComboBox tableComboBox, tableComboBox2, table1ComboBox, table2ComboBox, columnComboBox, columnComboBox2,

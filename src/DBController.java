@@ -1,14 +1,7 @@
-/*
-Brandon Gathright
-Seth Hamilton
-Samiha Elahi
-Johnny Hernandez
-CSCE 315
-3/23/2020
- */
-
 import java.sql.*;
 import javax.swing.*;
+// import java.awt.GridLayout;
+// import java.awt.Dimension;
 
 
 public class DBController {
@@ -44,7 +37,7 @@ public class DBController {
                 ResultSet result = stmt.executeQuery(s);
                 return result;
             } catch (Exception e2) {
-                JOptionPane.showMessageDialog(null,"Query failed (Check your column name).");
+                //JOptionPane.showMessageDialog(null,"Query failed (Check your column name).");
                 System.out.println(String.format("Error: %s", e2.toString()));
             }
         }
